@@ -22,7 +22,6 @@
 import config from '../../js/config.js';
 import Ctile from '../common/title.vue';
 export default {
-  
     data(){
         return {
             list:[],
