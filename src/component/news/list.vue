@@ -7,8 +7,8 @@
 						<img class="mui-media-object mui-pull-left" :src="item.img_url">
 						<div class="mui-media-body">
 							<p class="mui-ellipsis">{{item.title}}</p>
-						       <div class="list-item">
-                                <p>创建时间:{{item.add_time}}</p>       
+						       <div class="list_item">
+                                <p>创建时间:{{item.add_time | formatDate('YYYY-MM-DD') }}</p>       
                                 <p>点击量:{{item.click}}</p>       
                              </div>
 						</div>
@@ -47,7 +47,7 @@ export default {
 
 <style lang='less'>
     .list{
-        &_item p{
+         &_item p{
             display: inline-block;
         }
     }
