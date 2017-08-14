@@ -4,8 +4,8 @@ export default{
     domain:domain,
     newsList : domain + '/api/getnewslist',
     newsDetails : domain + '/api/getnew/',
-
+    //评论
     commentPut: domain +'/api/postcomment/',
-    commentList: domain + '/api/getcomments/'
+    commentList: domain + '/api/getcomments/',
     
 }
