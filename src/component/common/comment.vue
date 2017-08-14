@@ -22,14 +22,14 @@
                                 <div>
                                     <span>第{{i+1}}楼</span>
                                     <span>用户:{{ item.user_name }} </span>
-                                    <span>发表时间:{{ item.add_time}}</span>
+                                    <span>发表时间:{{ item.add_time | formatDate}}</span>
                                         
                                 </div>
                                 <p>{{item.content}}</p>
                             </li>
                            
                         </ul>
-                    <button ref='loadMoreBtn' @click="getComment" type="button" class="mui-btn mui-btn-royal mui-btn-block">提交</button>
+                    <button ref='loadMoreBtn' @click="getComment" type="button" class="mui-btn mui-btn-royal mui-btn-block">加载更多</button>
 				</div>
             </div>
     </section>
@@ -81,6 +81,7 @@ export default {
                     this.list.push(...body.message);
                     this.pageindex++;
                 }else{
+                    //数据已经加载到没有就禁用
                     this.$refs.loadMoreBtn.disabled = true;
                 }
             })
