@@ -19,9 +19,10 @@ export default {
     },
     methods:{
         getLunbo(){
-            this.$http.get('http://139.199.192.48:8888/api/getlunbo').then(resp =>{
-                if(resp.body.status == 0){
-                    this.list = resp.body.message;
+            let url = 'http://139.199.192.48:8888/api/getlunbo';
+            this.$http.get(url).then(rep =>{
+                if(rep.body.status == 0){
+                    this.list = rep.body.message;
                 }
             })
         }
