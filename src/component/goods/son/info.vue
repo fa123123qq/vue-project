@@ -17,6 +17,7 @@ export default {
         }
     },
     methods:{
+        //获取商品图文介绍
         getInfo(){
              let url = config.goodsDetails + this.id;
              this.$http.get(url).then(rep =>{

@@ -13,18 +13,14 @@
         <div class="price"> <s>市场价:￥{{ goods.market_price }}</s> <span>销售价: </span> <em>￥{{ goods.sell_price }}</em> </div>
         <div> <span>购买数量：</span>
           <!--数字输入框 -->
-          <div class="mui-numbox">
-          	<button class="mui-btn mui-btn-numbox-minus">-</button>
-          	<input class="mui-input-numbox" type="number" value="10">
-          	<button class="mui-btn mui-btn-numbox-plus">+</button>
-          </div>
+          <v-numbox :initVal='total' @change="upTotal"></v-numbox>
         </div>
       </div>
       <!-- 按钮 -->
       <div class="mui-card-footer">
       	<button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">结算</button>
         <div></div>
-        <button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">加入购物车</button>
+        <button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined" @click="addShopcart">加入购物车</button>
       </div>
     </div>
 
@@ -55,6 +51,7 @@ import Ctitle from '../common/title.vue';
 import Cswipe from '../common/swipe.vue';
 import Ccomment from '../common/comment.vue';
 import Cinfo from './son/info.vue';
+import Cnumbox from '../common/numbox.vue';
 
 export default {
   data(){
@@ -63,10 +60,12 @@ export default {
           lunbos:[],
           goods:{},
           selectedTab:'',
-          id: this.$route.params.id
+          id: this.$route.params.id,
+          total:10
       }
   },
   methods:{
+    //获取轮播图数据
       getLunbos(){
           let url = config.photoHums + this.id;
           this.$http.get(url).then(rep =>{
@@ -88,6 +87,15 @@ export default {
                   this.goods = body.message[0];
                     }
                  })
+              },
+              //更新商品的选择数量值
+              upTotal(v){
+                this.total =v;
+              },
+              //加入购物车
+              addShopcart(){
+                //目前先把这个商品数量替换到购物车图标中，后续再完善
+                document.querySelector('.mui-badge').innerHTML = this.total;
               }
   },
   created(){
@@ -98,7 +106,8 @@ export default {
       "v-title":Ctitle,
       "v-swipe":Cswipe,
       'v-comment': Ccomment,
-      'v-info': Cinfo
+      'v-info': Cinfo,
+      'v-numbox':Cnumbox
   }
 }
 </script>

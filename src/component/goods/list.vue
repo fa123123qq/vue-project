@@ -30,7 +30,8 @@
       </li>
     </ul>
     <!-- 加载更多 -->
-    <button class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined" ref="loadMoreBtn" @click="getList">加载更多</button>
+    <button class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined" 
+    ref="loadMoreBtn" @click="getList">加载更多</button>
   </article>
 </template>
 
@@ -54,7 +55,8 @@ export default {
                 if(body.status== 0&& body.message.length >0){
                     this.list.push(...body.message);
                     this.pageindex++;
-                }else if(body.message.length == 0){
+                } // 如果已经是最后一页数据了，那么把按钮disable掉
+                else if(body.message.length == 0){
                     this.$refs.loadMoreBtn.disabled =true;
                 }
             })
