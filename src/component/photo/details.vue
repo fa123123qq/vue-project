@@ -1,5 +1,6 @@
 <template>
   <section class="details">
+    <v-title :title="title"></v-title>
     <div class="mui-card">
       <div class="mui-card-header">
         <h4>{{ info.title }}</h4>
@@ -22,11 +23,13 @@
 
 <script>
 import config from '../../js/config.js';
+import Ctile from '../common/title.vue';
 export default {
     data(){
         return{
             info:{},
-            hums:[]
+            hums:[],
+            title:'图片详情'
         }
     },
     methods:{
@@ -56,6 +59,9 @@ export default {
     created(){
         this.getInfo();
         this.getHums();
+    },
+    components:{
+        'v-title':Ctile
     }
   
 }

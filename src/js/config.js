@@ -11,7 +11,13 @@ export default{
     //图片
     photoList: domain +'/api/getimages/',       //图片列表
     photoCategoryList: domain +'/api/getimgcategory',     //图片分类
-    
      photoHums: domain + '/api/getthumimages/', // 缩略图 
-    photoInfo: domain + '/api/getimageInfo/' // 图片详情数据
+    photoInfo: domain + '/api/getimageInfo/', // 图片详情数据
+
+    goodsList:domain + '/api/getgoods/',        //商品列表
+    goodsPrice:domain + '/api/goods/getdesc/',  //商品相关价格
+    goddsDetails:domain +'/api/goods/getinfo/'  //商品图文详情
+
+
+
 }

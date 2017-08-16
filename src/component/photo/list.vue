@@ -11,6 +11,7 @@
         <div class="mui-card" v-for="item in photoList" :key="item.id">
 			 <router-link :to="{ name: 'photoD', params: { id: item.id } }">
           <div class="mui-card-header">
+              <!--懒加载图片的使用-->
             <img v-lazy="item.img_url" />
           </div>
         </router-link>
@@ -90,6 +91,7 @@ export default {
          .mui-card-header img {
       width: 100%;
       height: 100%;
+      //懒加载插件的样式
       &[lazy=loading] {
         width: 40px;
         height: 300px;

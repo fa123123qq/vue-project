@@ -12,6 +12,10 @@ import CnewsDetails from '../component/news/details.vue';
 import CphotoList from '../component/photo/list.vue';
 import CphotoDetails from '../component/photo/details.vue';
 
+//导入商品购买组件
+import CgoodsList from '../component/goods/list.vue';
+import CgoodsDetails from '../component/goods/details.vue';
+
 
 //导出一个路由实例
 export default new VueRouter({
@@ -23,7 +27,10 @@ export default new VueRouter({
         {path:'/news/details/:id',component:CnewsDetails,name:'newD'},
         //图片分享
          {path:'/photo/list/:id',component:CphotoList,name:'photoL'},
-         {path:'/photo/details/:id',component:CphotoDetails,name:'photoD'}
+         {path:'/photo/details/:id',component:CphotoDetails,name:'photoD'},
+         //商品购买
+          { path: '/goods/list', component: CgoodsList, name: 'goodsL' },
+        { path: '/goods/details/:id', component: CgoodsDetails, name: 'goodsD' },
 
     ]
 });
