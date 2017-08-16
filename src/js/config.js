@@ -15,8 +15,8 @@ export default{
     photoInfo: domain + '/api/getimageInfo/', // 图片详情数据
 
     goodsList:domain + '/api/getgoods/',        //商品列表
-    goodsPrice:domain + '/api/goods/getdesc/',  //商品相关价格
-    goddsDetails:domain +'/api/goods/getinfo/'  //商品图文详情
+    goodsPrice:domain + '/api/goods/getinfo/',  //商品相关价格
+    goodsDetails:domain +'/api/goods/getdesc/'  //商品图文详情
 
 
 
