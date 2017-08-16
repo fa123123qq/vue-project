@@ -9,9 +9,11 @@
 			</ul>
         <!--图片列表-->
         <div class="mui-card" v-for="item in photoList" :key="item.id">
-				<router-link :to="'/photo/details/' + item.id">
-                     <div class="mui-card-header mui-card-media" :style="getStyle(item)"></div>
-                </router-link>
+			 <router-link :to="{ name: 'photoD', params: { id: item.id } }">
+          <div class="mui-card-header">
+            <img v-lazy="item.img_url" />
+          </div>
+        </router-link>
 
 				<div class="mui-card-content">
 					<div class="mui-card-content-inner">
@@ -46,7 +48,8 @@ export default {
         getCategoryList(){
             let url = config.photoCategoryList;
             this.$http.get(url).then(rep => {
-                rep.body.status == 0 &&(this.categorylist = rep.body.message)
+                let body = rep.body;
+                body.status == 0 &&(this.categorylist = body.message)
             })
         },
         // 获取图片列表
@@ -84,5 +87,14 @@ export default {
                float: left;
            }
        }
+         .mui-card-header img {
+      width: 100%;
+      height: 100%;
+      &[lazy=loading] {
+        width: 40px;
+        height: 300px;
+        margin: auto;
+      }
+    }
    }
 </style>

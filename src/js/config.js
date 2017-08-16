@@ -10,7 +10,8 @@ export default{
     commentList: domain + '/api/getcomments/',
     //图片
     photoList: domain +'/api/getimages/',       //图片列表
-    photoCategoryList: domain +'/api/getimgcategory/',     //图片分类
+    photoCategoryList: domain +'/api/getimgcategory',     //图片分类
+    
      photoHums: domain + '/api/getthumimages/', // 缩略图 
     photoInfo: domain + '/api/getimageInfo/' // 图片详情数据
 }
