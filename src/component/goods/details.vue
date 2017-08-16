@@ -28,18 +28,25 @@
 		<div class="mui-card">
 			<!-- 选项卡 -->
 		    <mt-navbar v-model="selectedTab">
+			  <mt-tab-item id="v-comment">商品评论</mt-tab-item>
+			  <mt-tab-item id="v-info">图文介绍</mt-tab-item>
+			</mt-navbar>
+      <!-- 显示内容，需要传入id，需要根据is值来控制组件的切换,每点一次发送一次请求 -->
+      <component :id="id" :is="selectedTab"></component>
+
+      <!-- 显示内容,一次性把数据请求回来 -->
+       <!--<mt-navbar v-model="selectedTab">
 			  <mt-tab-item id="comment">商品评论</mt-tab-item>
 			  <mt-tab-item id="info">图文介绍</mt-tab-item>
-			</mt-navbar>
-			<!-- 内容 -->
-		    <mt-tab-container v-model="selectedTab">
+			</mt-navbar>-->
+		    <!--<mt-tab-container v-model="selectedTab">
 			  <mt-tab-container-item id="comment">
 			    <v-comment :id="id"></v-comment>
 			  </mt-tab-container-item>
 			  <mt-tab-container-item id="info">
 			    <v-info :id="id"></v-info>
 			  </mt-tab-container-item>
-			</mt-tab-container>
+			</mt-tab-container>-->
 		</div>
 
   </article>
@@ -47,6 +54,7 @@
 
 <script>
 import config from '../../js/config.js';
+import goodsStorage from '../../js/model/goods.js';
 import Ctitle from '../common/title.vue';
 import Cswipe from '../common/swipe.vue';
 import Ccomment from '../common/comment.vue';
@@ -61,7 +69,8 @@ export default {
           goods:{},
           selectedTab:'',
           id: this.$route.params.id,
-          total:10
+          total:goodsStorage.get(this.$route.params.id)
+          //页面一上来就从本地读取这个商品的历史购买数量
       }
   },
   methods:{
@@ -94,8 +103,10 @@ export default {
               },
               //加入购物车
               addShopcart(){
+                //点击购物车,就把这个商品的购买数量持久化记录下来
+                goodsStorage.set(this.id,this.total);
                 //目前先把这个商品数量替换到购物车图标中，后续再完善
-                document.querySelector('.mui-badge').innerHTML = this.total;
+                document.querySelector('.mui-badge').innerHTML = goodsStorage.get();
               }
   },
   created(){
