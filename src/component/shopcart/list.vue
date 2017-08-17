@@ -30,7 +30,7 @@
         </ul>
       </div>
       <div class="total_btn">
-        <mt-button type="primary">付 款</mt-button>
+        <mt-button type="primary" @click.native="payment">付 款</mt-button>
       </div>
     </div>
   </article>
@@ -42,6 +42,7 @@ import config from '../../js/config.js';
 import Ctitle from '../common/title.vue';
 import goodsStorage from '../../js/model/goods.js';
 import Cnumbox from '../common/numbox.vue';
+import {Toast} from 'mint-ui';
 export default {
     data(){
         return{
@@ -73,7 +74,7 @@ export default {
         //删除商品
         remove(id){
           //删除页面的商品信息
-          let index  = this.shopcartList.findIndex(item => item.id == id);
+          let index  = this.shopcartList.findIndex(item => item.id == id);    //找到要删除的id和数据的id一样
           index >-1 && this.shopcartList.splice(index,1);
           //删除数据的信息
           goodsStorage.remove(id);
@@ -84,9 +85,30 @@ export default {
        },
        //更新指定商品的购买数量
        upTotal(id,total){
+         //要手动更新才能触发购买数量和总价格的修改
          this.shopcartList[0].selected = !this.shopcartList[0].selected;
          this.shopcartList[0].selected = !this.shopcartList[0].selected;
          goodsStorage.set(id,total);
+          // 把商品的总数挂载上去
+         document.querySelector('.mui-badge').innerHTML = goodsStorage.get();
+       },
+       //付款
+       payment(){
+         //只要有一个商品被选中,并且不为0,那么结果就是true
+         let hasSelected = this.shopcartList.some(item => item.selected&&goodsStorage.get(item.id));
+         if(!hasSelected){
+           Toast('请至少选购一件商品');
+         }
+         //使用正则判断用户是否登陆,登陆成功后跳转到订单页
+         else if(!/SESSIONID=\w+/.test(document.cookie)){
+            // Toast('跳转到登陆');
+            this.$router.push({name:'login',query:{nextpage:'/shopcart/order'}})
+         }
+         // 选购了商品，也登陆了，才能转到订单页
+         else{
+          //  Toast('跳转到订单页面');
+          this.$router.push('/shopcart/order');
+         }
        }
 
     },computed:{

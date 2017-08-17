@@ -17,7 +17,10 @@ import CgoodsList from '../component/goods/list.vue';
 import CgoodsDetails from '../component/goods/details.vue';
 
 //导入购物车组件
-import CshopcartList from '../component/shopcart/list.vue'
+import CshopcartList from '../component/shopcart/list.vue';
+import CshopcartOrder from '../component/shopcart/order.vue';
+// 导入user组件
+import CuserLogin from '../component/user/login.vue';
 
 //导出一个路由实例
 export default new VueRouter({
@@ -36,6 +39,10 @@ export default new VueRouter({
 
         //购物车
           { path: '/shopcart/list', component: CshopcartList, name: 'shopcartL' },
+          { path: '/shopcart/order', component: CshopcartOrder, name: 'shopcartD' },
+
+          //用户
+           { path: '/user/login', component: CuserLogin, name: 'login' },
 
     ]
 });
