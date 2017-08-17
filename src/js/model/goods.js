@@ -24,6 +24,11 @@ export default{
     //获取所有total组成的数组
     getTotalList(){
         return Object.values(goodsTotal);
+    },
+    // 根据id删除对应商品的数量,删除后记得持久化存储最新结果
+    remove(id){
+        delete goodsTotal[id];
+        storage.set(storageKey,goodsTotal);
     }
 };
 // 目前咱们完成的这个商品选购存取，操作的都是内存，关闭页面，数据丢失

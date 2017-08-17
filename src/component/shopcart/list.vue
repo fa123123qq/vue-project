@@ -12,10 +12,10 @@
           <ul>
             <li>￥{{ item.sell_price }}</li>
             <li>
-              <div class="mui-numbox"> <button class="mui-btn mui-btn-numbox-minus">-</button> <input class="mui-input-numbox" type="number"> <button class="mui-btn mui-btn-numbox-plus">+</button> </div>
+              <v-numbox :initVal='getTotal(item.id)' @change='upTotal(item.id,$event)'></v-numbox>
             </li>
             <li>
-              <a href="javascript:void(0)">删除</a>
+              <a href="javascript:void(0)" @click="remove(item.id)">删除</a>
             </li>
           </ul>
         </div>
@@ -41,6 +41,7 @@
 import config from '../../js/config.js';
 import Ctitle from '../common/title.vue';
 import goodsStorage from '../../js/model/goods.js';
+import Cnumbox from '../common/numbox.vue';
 export default {
     data(){
         return{
@@ -69,6 +70,24 @@ export default {
             }
           })
         },
+        //删除商品
+        remove(id){
+          //删除页面的商品信息
+          let index  = this.shopcartList.findIndex(item => item.id == id);
+          index >-1 && this.shopcartList.splice(index,1);
+          //删除数据的信息
+          goodsStorage.remove(id);
+        },
+       //通过id拿到商品的选购数量
+       getTotal(id){
+          return goodsStorage.get(id);
+       },
+       //更新指定商品的购买数量
+       upTotal(id,total){
+         this.shopcartList[0].selected = !this.shopcartList[0].selected;
+         this.shopcartList[0].selected = !this.shopcartList[0].selected;
+         goodsStorage.set(id,total);
+       }
 
     },computed:{
        //总数量
@@ -88,7 +107,8 @@ export default {
         this.getShopcartList();
     },
     components:{
-      "v-title":Ctitle
+      "v-title":Ctitle,
+       'v-numbox':Cnumbox
     }
     
 }
