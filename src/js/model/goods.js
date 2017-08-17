@@ -8,6 +8,7 @@ export default{
         goodsTotal[id] = total;
         storage.set(storageKey,goodsTotal);
     },
+    //有id返回对象的值,没有id返回所有的数量,没有就返回0
     get(id){
         if(id){
             return goodsTotal[id] || 0;
