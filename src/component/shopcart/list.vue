@@ -26,7 +26,7 @@
       <div class="total_val">
         <ul>
           <li>总计（不含运费）</li>
-          <li>已勾选商品10件,总价:￥1000元</li>
+          <li>已勾选商品{{ sumTotal }}件,总价:￥{{ priceTotal }}元</li>
         </ul>
       </div>
       <div class="total_btn">
@@ -50,10 +50,16 @@ export default {
         };
     },
     methods:{
+      //获取购物车商品数据
         getShopcartList(){
+          //如果之前没有选购过商品,就不用请求接口了
+          let idList = goodsStorage.getIDList();
+          if(!idList.length){return;}
           let url = config.shopcartList + goodsStorage.getIDList();
           this.$http.get(url).then(rep => {
             let body = rep.body;
+            // 因为请求回来的图片没有域名，所以加一下
+        // 每个商品都额外添加一个selected属性用来控制该商品的选取，默认选取状态
             if(body.status == 0){
               this.shopcartList = body.message.map(item => {
                 item.selected = true;
@@ -62,7 +68,21 @@ export default {
               })
             }
           })
-        }
+        },
+
+    },computed:{
+       //总数量
+       sumTotal(){
+         // 遍历取出每个商品的数量，如果这个商品是未选中状态，那么数量设为0
+         let totalArr = this.shopcartList.map(item => item.selected?+goodsStorage.get(item.id):0);
+         return totalArr.length && totalArr.reduce((v1,v2)=>v1 + v2);
+       },
+        //总价格
+       priceTotal(){
+         // 遍历取出每个商品的数量，如果这个商品是未选中状态，那么数量设为0
+         let priceArr = this.shopcartList.map(item => item.selected?+goodsStorage.get(item.id)*item.sell_price:0);
+         return priceArr.length && priceArr.reduce((v1,v2)=>v1 + v2);
+       }
     },
     created(){
         this.getShopcartList();
