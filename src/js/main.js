@@ -32,32 +32,36 @@ import ComptApp from '../component/App.vue' //根组件
 
 import router from './router.js';       //路由
 
+import Vgoods from './vuex/goods.js'    //管理购物车数量
+
 //创建一个Vue实例,关联视图,把根组件渲染到视图中
 new Vue({
     el:'#app',
     render:c => c(ComptApp),
     router,
-    store:new Vuex.Store({
-        state:{
-             // 相当于咱们之前的data配置
-            count:200
-        },
-        getters:{
-            // 提供一个获取数据方法，这个方法会接收到state数据对象，
-             // 由我们自由去返回数据，也可以对数据进行加工后再返回
-            getCount(state){
-                return state.count;
-            }
-        },
-        mutations:{
-            // 修改count方式1，自增
-            countAdd(state){
-                state.count++;
-            },
-            // 修改count方式2，覆盖
-            setCount(state,val){
-                state.count = val;
-            }
-        }
-    })
+    // store:new Vuex.Store({
+    //     state:{
+    //          // 相当于咱们之前的data配置
+    //         count:200
+    //     },
+    //     getters:{
+    //         // 提供一个获取数据方法，这个方法会接收到state数据对象，
+    //          // 由我们自由去返回数据，也可以对数据进行加工后再返回
+    //         getCount(state){
+    //             return state.count;
+    //         }
+    //     },
+    //     mutations:{
+    //         // 修改count方式1，自增
+    //         countAdd(state){
+    //             state.count++;
+    //         },
+    //         // 修改count方式2，覆盖
+    //         setCount(state,val){
+    //             state.count = val;
+    //         }
+    //     }
+    // })
+    store: new Vuex.Store(Vgoods)
+     
 })
