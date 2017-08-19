@@ -2,7 +2,9 @@
     <section class="imgList">
         <!--图片选项卡 -->
           <ul class="mui-table-view">
-				 <li class="mui-table-view-cell">全部</li>
+				 <li class="mui-table-view-cell">
+                    <router-link to="/photo/list/0">全部</router-link>
+                 </li>
 		         <li class="mui-table-view-cell" v-for="item in categorylist" :key="item.id">
                     <router-link :to="'/photo/list/' + item.id">{{item.title}}</router-link>
                  </li>
@@ -29,6 +31,7 @@
 
 <script>
 import config from '../../js/config.js';
+import HTTP from '../../js/common/http.js';
  
 export default {
     data() {
@@ -56,14 +59,21 @@ export default {
         // 获取图片列表
         getPhotoList(id){
             let url = config.photoList + id;
-            this.$http.get(url).then(rep => {
-                let body = rep.body;
-              if(body.status == 0){
-                 this.photoList = body.message.map(function (photo,i) { 
+            // this.$http.get(url).then(rep => {
+            //     let body = rep.body;
+            //   if(body.status == 0){
+            //      this.photoList = body.message.map(function (photo,i) { 
+            //          photo.img_url = config.imgDomain + photo.img_url;
+            //          return photo;
+            //       })
+            //   }  
+            // })
+            HTTP.get(url,body =>{
+                //遍历图片列表,修改每一个图片对象的img_url地址
+                this.photoList = body.message.map(function (photo,i) {
                      photo.img_url = config.imgDomain + photo.img_url;
                      return photo;
                   })
-              }  
             })
         },
          // 获取背景style

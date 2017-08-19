@@ -30,7 +30,7 @@ export default {
             // })
             Http.get(url,body =>{
                 //因为公共的轮播图使用的图片地址属性名为src，这里的图片地址名为img，所以转换一下
-                this.lunbos = body.message.map(item => (item.src = item.img)&&item)
+                this.lunbos = body.message.map(item => (item.src = item.img)&&item);
             })
         }
     },
