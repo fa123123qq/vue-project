@@ -7,7 +7,10 @@ export default{
     get(url,success,config={}){
         // 先用缓存
         let data = cache.get(url);
+        
         if(data){
+        //   console.log(data);
+          
             success(data);
         }
 // 没有缓存就使用Vue的http静态方法发送请求，请求回来时候先统一做一个判断处理，
@@ -17,6 +20,7 @@ export default{
                 let body = rep.body;
                 if(body.status == 0){
                     cache.set(url,body);    // 记得请求回来缓存存储
+                    
                     success(body);
                 }else{
                     Toast('请求失败!');

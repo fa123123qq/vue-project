@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 // MintUI是vue插件，将来需要手动use才可以使用
 import MintUI from 'mint-ui';
+import {Indicator} from 'mint-ui';
 import 'mint-ui/lib/style.min.css';
 //引入图片预览插件
 import vuePicturePreview from 'vue-picture-preview';
@@ -20,6 +21,17 @@ Vue.use(VueResource);
 Vue.use(MintUI);
 Vue.use(vuePicturePreview);
 Vue.use(Vuex);
+
+Vue.http.interceptors.push(function (req,next) { 
+    // 在这里我们可以做一些请求之前的事情
+    Indicator.open('loading...');
+
+    // 如果需要发送请求，请调用next方法，next方法我们也可以通过回调的方式对返回结果进行统一处理。
+    next(function (rep) { 
+        // alert('请求完毕了');
+        Indicator.close();
+     })
+ })
 
 //二.导入自己的组件
 

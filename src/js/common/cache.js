@@ -14,7 +14,9 @@ export default{
         if(!tempObj || Date.now() - tempObj.time > maxAge){
             this.remove(key);
         }else{
+          
             return tempObj.data;
+            
         }
     },
 

@@ -71,6 +71,8 @@ export default {
             HTTP.get(url,body =>{
                 //遍历图片列表,修改每一个图片对象的img_url地址
                 this.photoList = body.message.map(function (photo,i) {
+                    //由于缓存读取时多了一的config.imgDomain,会导致请求失败,所以去掉
+                    photo.img_url = photo.img_url.replace(new RegExp(config.imgDomain), "");
                      photo.img_url = config.imgDomain + photo.img_url;
                      return photo;
                   })
