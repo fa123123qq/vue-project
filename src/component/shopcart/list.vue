@@ -77,21 +77,24 @@ export default {
           let index  = this.shopcartList.findIndex(item => item.id == id);    //找到要删除的id和数据的id一样
           index >-1 && this.shopcartList.splice(index,1);
           //删除数据的信息
-          goodsStorage.remove(id);
+          // goodsStorage.remove(id);
+          this.$store.commit('remove',id);
         },
        //通过id拿到商品的选购数量
        getTotal(id){
-          return goodsStorage.get(id);
+          // return goodsStorage.get(id);
+          return this.$store.state[id];
        },
        //更新指定商品的购买数量
        upTotal(id,total){
          //要手动更新才能触发购买数量和总价格的修改
          this.shopcartList[0].selected = !this.shopcartList[0].selected;
          this.shopcartList[0].selected = !this.shopcartList[0].selected;
-         goodsStorage.set(id,total);
-          // 把商品的总数挂载上去
-         document.querySelector('.mui-badge').innerHTML = goodsStorage.get();
-       },
+        //  goodsStorage.set(id,total);
+        //   // 把商品的总数挂载上去
+        //  document.querySelector('.mui-badge').innerHTML = goodsStorage.get();
+        this.$store.commit('set',{id,total})
+     },
        //付款
        payment(){
          //只要有一个商品被选中,并且不为0,那么结果就是true
